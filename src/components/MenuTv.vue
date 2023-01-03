@@ -14,24 +14,37 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown dropend">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Peliculas
+                                Generos Destacados
                             </a>
                             <!-- Lista de opciones para el enlace de peliculas---->
                             <ul class="dropdown-menu menu-list" aria-labelledby="navbarDropdownMenuLink">
-                                <li><div @click="destino('Action')" class="dropdown-item link-destino">Accion</div></li>
-                                <li><div @click="destino('Adventure')" class="dropdown-item link-destino">Aventura</div></li>
-                                <li><div @click="destino('Animation')" class="dropdown-item link-destino">Animacion</div></li>
-                                <li><div @click="destino('Biography')" class="dropdown-item link-destino">Biografia</div></li>
-                                <li><div @click="destino('Comedy')" class="dropdown-item link-destino">Comedia</div></li>
-                                <li><div @click="destino('Crime')" class="dropdown-item link-destino">Crimen</div></li>
-                                <li><div @click="destino('Drama')" class="dropdown-item link-destino">Drama</div></li>
-                                <li><div @click="destino('Family')" class="dropdown-item link-destino">Familiar</div></li>
-                                <li><div @click="destino('Fantasy')" class="dropdown-item link-destino">Fantasia</div></li>
-                                <li><div @click="destino('Sci-Fi')" class="dropdown-item link-destino">Ficcion</div></li>
-                                <li><div @click="destino('Romance')" class="dropdown-item link-destino">Romance</div></li>
-                                <li><div @click="destino('Horror')" class="dropdown-item link-destino">Terror</div></li>
+                                <li>
+                                  <div class="dropdown-item link-destino">
+                                    <a :href="destino('Action')">Accion</a>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="dropdown-item link-destino">
+                                    <a :href="destino('Animation')">Animacion</a>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="dropdown-item link-destino">
+                                    <a :href="destino('Comedy')">Comedia</a>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="dropdown-item link-destino">
+                                    <a :href="destino('Horror')">Terror</a>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="dropdown-item link-destino">
+                                    <a :href="destino('Romance')">Romance</a>
+                                  </div>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -99,7 +112,7 @@ export default {
     },
 
     destino (genre) {
-      this.$router.push(`/peliculas/${genre}/${1}`)
+      return `/peliculas/${genre}/${1}`
     },
 
     perfilUser (id) {
@@ -129,7 +142,6 @@ export default {
         background: #1b2557d9;
     }
     .items-nav {
-      display: flex;
       justify-content: space-around;
     }
     li a {
@@ -143,6 +155,9 @@ export default {
         color: white;
         cursor:pointer;
         font-weight: bold;
+    }
+    .link-destino a {
+      text-decoration: none;
     }
     .link-destino:hover{
         background: #912d2edc;
