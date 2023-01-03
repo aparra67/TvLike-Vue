@@ -27,13 +27,19 @@
       </div>
       <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
         <div class="row row-content p-2">
-          <strong class="mb-3 mt-2">Generos Más Vistos</strong>
+          <strong class="mb-3 mt-2">Todos los Generos</strong>
           <ul class="list-group shadow p-0 mb-5 rounded card-container">
             <li class="list-group-item"><div @click="destino('Action')" class="dropdown-item link-destino">Accion</div></li>
-            <li class="list-group-item"><div @click="destino('Comedy')" class="dropdown-item link-destino">Comedia</div></li>
             <li class="list-group-item"><div @click="destino('Animation')" class="dropdown-item link-destino">Animacion</div></li>
-            <li class="list-group-item"><div @click="destino('Horror')" class="dropdown-item link-destino">Terror</div></li>
+            <li class="list-group-item"><div @click="destino('Biography')" class="dropdown-item link-destino">Biografia</div></li>
+            <li class="list-group-item"><div @click="destino('Comedy')" class="dropdown-item link-destino">Comedia</div></li>
+            <li class="list-group-item"><div @click="destino('Crime')" class="dropdown-item link-destino">Crimen</div></li>
+            <li class="list-group-item"><div @click="destino('Drama')" class="dropdown-item link-destino">Drama</div></li>
+            <li class="list-group-item"><div @click="destino('Family')" class="dropdown-item link-destino">Familiar</div></li>
+            <li class="list-group-item"><div @click="destino('Fantasy')" class="dropdown-item link-destino">Fantasia</div></li>
+            <li class="list-group-item"><div @click="destino('Sci-Fi')" class="dropdown-item link-destino">Ficcion</div></li>
             <li class="list-group-item"><div @click="destino('Romance')" class="dropdown-item link-destino">Romance</div></li>
+            <li class="list-group-item"><div @click="destino('Horror')" class="dropdown-item link-destino">Terror</div></li>
           </ul>
         </div>
     </div>
@@ -100,11 +106,12 @@ export default {
     background: #5062bb83;
   }
   .link-destino {
+    background: #5062bb00;
         color: white;
         cursor:pointer;
         font-weight: bold;
     }
-    .link-destino:hover{
+    li:hover{
         background: #912d2edc;
     }
   @media(min-width: 250px) and (max-width: 768px) {
