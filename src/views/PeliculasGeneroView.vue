@@ -6,13 +6,12 @@
         <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
-            <!-- <div v-for="peli in movies" :key="peli.id"> -->
               <div class="card shadow p-2 mb-5  h-100 card-container">
                 <!-- El boton es Para ver los detalles de la pelicula-->
                 <button type="link" @click="showMovieDetails(peli.id)">
                   <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli"/>
                 </button>
-                <div class="card-body">
+                <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
                   <h5 class="card-title">{{ peli.title }}</h5>
                 </div>
                 <!-- <div class="card-footer">
@@ -36,9 +35,7 @@
                 </a>
               </li>
               <li v-for="i in rangoPage" :key="i" class="page-item" :class="isActive(i)">
-                <!-- <a class="page-link page-list" :href="ruta(i)">{{ i }}</a> -->
                 <a class="page-link page-list" :href="ruta(i)" v-show="rangoPage">{{ i }}</a>
-                <!-- <div class="page-link page-list" @click="ruta(i)" v-show="i < rangoPage" style="color: white; cursor:pointer; font-weight: bold;">{{ i }}</div> -->
               </li>
               <li class="page-item" @click="getNextPage()">
                 <a class="page-link page-list next" :href="next" v-show="pageActual < pages" aria-label="Next">
@@ -76,9 +73,6 @@ export default {
     }
   },
   mounted () {
-    // this.pageActual = this.$route.params.page
-    console.log(this.$route.params)
-    console.log(this.pageActual)
     this.axios.get(`${url}list_movies.json?sort_by=year&genre=${this.genre}&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
       this.pageActual = this.pageActual = response.data.data.page_number
       this.movies = response.data.data.movies
@@ -110,19 +104,6 @@ export default {
     cargarLocalStorage () {
       localStorage.setItem('user-data', JSON.stringify(this.user))
     },
-    /* getDataPagina (pagina) {
-      // const page = pagina + 1
-      console.log('entre al getDataPagina')
-      console.log('el valor de pagina entes dela consulta get es: ')
-      console.log(pagina)
-      this.movies = null
-      this.pageActual = pagina
-      this.axios.get(` ${url}list_movies.json?sort_by=year&genre=${this.genre}&limit=${this.elementsPagina}&page=${this.pageActual} `).then((response) => {
-        this.movies = response.data.data.movies
-        console.log(response.data.data)
-      })
-      this.$router.push(`/peliculas/${this.genre}/${this.pageActual}`)
-    }, */
 
     /** Metodo para guardar el total de paginas que va a tener la Vista */
     totalPaginas () {
@@ -153,46 +134,29 @@ export default {
     paginacion (page) {
       if ((page >= this.maxPages / 2) && (page <= this.pages)) {
         if (page === this.pages) {
-          console.log('page es igual a this.page')
           for (let i = page; i > (page - this.maxPages); i--) {
             this.rangoPage.unshift(i)
           }
         }
         if (page < this.pages) {
-          console.log('page es menor que this.pages')
           for (let i = page; i > 0 && i >= (page - this.maxPages / 2); i--) {
-            console.log('realizando los calculos a la izquierda')
             this.rangoPage.unshift(i)
           }
           for (let j = page + 1; j < (this.pages) && (j <= (page + this.maxPages / 2)); j++) {
-            console.log('realizando los calculos a la derecha')
             this.rangoPage.push(j)
           }
-          // console.log(this.rangoPage)
         }
       } else {
-        console.log('page es igual a 1')
-        // if (page )
         for (let i = 0; i < this.maxPages; i++) {
           this.rangoPage.push(i + 1)
         }
       }
-      console.log(this.rangoPage)
-      /* if (page < 1) {
-        page = 1
-      }
-      if (page > this.pages) {
-        page = this.pages
-      } else {
-        this.rangoPage = this.pages.filter(element => element < page + 20 && element >= page)
-      } */
     },
 
     /** Metodo para ir a la pagina 'page' */
     ruta (page) {
       console.log('entre a rutas')
       return `/peliculas/${this.genre}/${page}`
-      // this.$router.push(`/peliculas/${this.genre}/${page}`)
     }
   }
 }
@@ -205,16 +169,21 @@ export default {
     height: 50px !important;
   }
   .card-container {
-    background: #1b2557d9;
+    background: #464555dc;
     border-radius: 10px;
   }
   .img-peli {
     width: 250px;
     height: auto;
   }
+  .card-body-link {
+    cursor: pointer;
+  }
   .page-list {
-    background: #1b2557d9;
-    border: none;
+    background: #464555dc;
+    color: white;
+    border: 1px solid white;
+    margin: 3px;
   }
   .prev {
     cursor: pointer;

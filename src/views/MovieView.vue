@@ -65,7 +65,6 @@
                     <iframe :src="trailer" class="yt-trailer" title="YouTube video" allowfullscreen></iframe>
                 </div>
             </div>
-            <!-- <div class="links-descargas"></div> -->
         </section>
         <!-- Seccion de Comentarios -->
         <section  v-if="user" class="container">
@@ -75,7 +74,6 @@
                     <div>
                         <h5 class="mt-0 fw-bold">Area de Comentarios</h5>
                         <p>This is some placeholder content for the custom component. It is intended to mimic what some real-world content would look like, and we're using it here to give the component a bit of body and size.</p>
-                        <!-- <a href="#" class="stretched-link">Go somewhere</a> -->
                     </div>
                 </div>
             </div>
@@ -133,7 +131,6 @@ export default {
       this.year = this.details_movie.year
       this.rating = this.details_movie.rating
       this.trailer = youtube.concat(this.details_movie.yt_trailer_code).concat(propYoutube)
-      console.log(this.details_movie)
     })
     this.axios.get(` ${url}movie_suggestions.json?movie_id=${this.id} `).then((response) => {
       this.list_movies = response.data.data.movies
@@ -156,11 +153,11 @@ export default {
         display: inline-block;
     }
     .card-container {
-        background: #1b2557d9;
+        background: #464555dc;
         border-radius: 12px;
     }
     .card-container-cast {
-        background: #1b2557d9;
+        background: #464555dc;
         border-radius: 12px;
         height: 80% !important;
     }
@@ -168,7 +165,7 @@ export default {
         list-style: none;
     }
     .content {
-    background: #1b2557d9;
+    background: #464555dc;
     border-radius: 10px;
     height: 80% !important;
     }

@@ -12,11 +12,13 @@
                 <div class="collapse navbar-collapse items-nav" id="navbarCollapse">
                     <ul class="navbar-nav align-items-center mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                            <a class="nav-link link-menu" aria-current="page" href="/">
+                              <i class="bi bi-house-door-fill"> Home</i>
+                            </a>
                         </li>
                         <li class="nav-item dropdown dropend">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Generos Destacados
+                            <a class="nav-link dropdown-toggle link-menu" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-star-fill"> Generos Destacados</i>
                             </a>
                             <!-- Lista de opciones para el enlace de peliculas---->
                             <ul class="dropdown-menu menu-list" aria-labelledby="navbarDropdownMenuLink">
@@ -48,7 +50,9 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Proximos Estrenos</a>
+                            <a class="nav-link link-menu" href="#">
+                              <i class="bi bi-calendar-event-fill"> Proximos Estrenos</i>
+                            </a>
                         </li>
                     </ul>
                     <!-- <div class="me-2 text-end">
@@ -128,7 +132,6 @@ export default {
       this.$store.dispatch('logout_session', token)
       setTimeout(() => {
         localStorage.clear()
-        // this.$router.push('/')
         location.replace('/')
       }, 1000)
     }
@@ -144,23 +147,26 @@ export default {
     .items-nav {
       justify-content: space-around;
     }
-    li a {
+    .link-menu {
         font-weight: bold;
         color: #fffffe !important;
     }
     .menu-list {
-        background: #5062bbc7;
+        background: #464555e8;
     }
     .link-destino {
-        color: white;
         cursor:pointer;
         font-weight: bold;
     }
     .link-destino a {
       text-decoration: none;
+      color: white;
     }
     .link-destino:hover{
-        background: #912d2edc;
+        background: #ABA9BC;
+    }
+    .link-destino a:hover {
+      color: #1b2557d9;
     }
     li {
         list-style: none;

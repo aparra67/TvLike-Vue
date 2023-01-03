@@ -6,7 +6,7 @@
           <div class="d-flex justify-content-between align-items-center mt-3">
             <strong class="d-inline">Peliculas Recientes</strong>
             <!-- boton para ir a la Vista de todas las peliculas recientes -->
-            <button type="button" class="btn btn-mas shadow mb-3 rounded" @click="listPeliReciente">Ver más</button>
+            <button type="button" class="btn btn-mas shadow mb-3" @click="listPeliReciente">Ver más</button>
             <!-------------------------------------------------------------->
           </div>
           <!-------------- Diseño para mostrar 12 peliculas recientes en el contenedor principal-------->
@@ -16,7 +16,7 @@
                 <button type="link" @click="showMovieDetails(item.id)">
                   <img :src="item.medium_cover_image" class="card-img-top img-thumbnail img-peli">
                 </button>
-                <div class="card-body">
+                <div class="card-body card-body-link" @click="showMovieDetails(item.id)">
                   <h5 class="card-title">{{ item.title }}</h5>
                 </div>
               </div>
@@ -28,7 +28,7 @@
       <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
         <div class="row row-content p-2">
           <strong class="mb-3 mt-2">Todos los Generos</strong>
-          <ul class="list-group shadow p-0 mb-5 rounded card-container">
+          <ul class="list-group shadow p-0 mb-5 card-container">
             <li class="list-group-item"><div @click="destino('Action')" class="dropdown-item link-destino">Accion</div></li>
             <li class="list-group-item"><div @click="destino('Animation')" class="dropdown-item link-destino">Animacion</div></li>
             <li class="list-group-item"><div @click="destino('Biography')" class="dropdown-item link-destino">Biografia</div></li>
@@ -58,7 +58,6 @@ export default {
   mounted () {
     this.axios.get(` ${url}list_movies.json?sort_by=year&limit=8 `).then((response) => {
       this.list_movies = response.data.data.movies
-      console.log(this.list_movies)
     })
   },
   methods: {
@@ -92,18 +91,24 @@ export default {
     border-radius: 10px;
   }
   .btn-mas {
-    background: rgb(240, 72, 60);
+    background: #831120;
     color: #fffffe;
+    border-radius: 8px;
+    padding: 10px 15px;
   }
   .card-container {
-    background: #5062bb83;
+    background: #464555dc;
     border-radius: 10px;
+  }
+  .card-body-link {
+    cursor: pointer;
   }
   .btn-mas:hover {
     background: rgb(235, 39, 25);
+    color: #1b2557d9;
   }
   li {
-    background: #5062bb83;
+    background: #464555dc;
   }
   .link-destino {
     background: #5062bb00;
@@ -112,7 +117,11 @@ export default {
         font-weight: bold;
     }
     li:hover{
-        background: #912d2edc;
+        background: #ABA9BC;
+        color: #1b2557d9;
+    }
+    .link-destino:hover {
+      color: #1b2557d9;
     }
   @media(min-width: 250px) and (max-width: 768px) {
         .row-content {

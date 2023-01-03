@@ -6,13 +6,12 @@
         <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
         <div class="row g-4">
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
-            <!-- <div v-for="peli in movies" :key="peli.id"> -->
               <div class="card shadow p-2 mb-5 h-100 card-container">
                 <!-- El boton es Para ver los detalles de la pelicula-->
                 <button type="link" @click="showMovieDetails(peli.id)">
                   <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli"/>
                 </button>
-                <div class="card-body">
+                <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
                   <h5 class="card-title">{{ peli.title }}</h5>
                 </div>
               </div>
@@ -65,13 +64,10 @@ export default {
     }
   },
   mounted () {
-    console.log(this.pageActual)
     this.axios.get(` ${url}list_movies.json?sort_by=year&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
       this.pageActual = this.pageActual = response.data.data.page_number
-      console.log(`estas en la pagina: ${response.data.data.page_number}`)
       this.movies = response.data.data.movies
       this.totalElements = response.data.data.movie_count
-      console.log(response.data.data)
       this.totalPaginas()
       this.paginacion(this.pageActual)
     })
@@ -101,18 +97,12 @@ export default {
     /** Metodo para guardar el total de paginas que va a tener la Vista */
     totalPaginas () {
       this.pages = Math.ceil(this.totalElements / this.elementsPagina)
-      console.log(this.pages)
-      /* for (let i = 0; i < Math.ceil(this.totalElements / this.elementsPagina); i++) {
-        this.pages.push(i)
-      } */
     },
 
     /** Metodo para ir a la pagina anterior */
     getPreviousPage () {
       if (this.pageActual > 1) {
-        console.log('toque el boton de atras')
         this.pageActual--
-        console.log('Ire a la pagina ', this.pageActual)
       }
       this.prev = this.ruta(this.pageActual)
     },
@@ -132,7 +122,6 @@ export default {
     paginacion (page) {
       if ((page >= this.maxPages / 2) && (page <= this.pages)) {
         if (page === this.pages) {
-          console.log('page es igual a this.page')
           for (let i = page; i > (page - this.maxPages); i--) {
             this.rangoPage.unshift(i)
           }
@@ -140,31 +129,18 @@ export default {
         if (page < this.pages) {
           console.log('page es menor que this.pages')
           for (let i = page; i > 0 && i >= (page - this.maxPages / 2); i--) {
-            console.log('realizando los calculos a la izquierda')
             this.rangoPage.unshift(i)
           }
           for (let j = page + 1; j < (this.pages) && (j <= (page + this.maxPages / 2)); j++) {
-            console.log('realizando los calculos a la derecha')
             this.rangoPage.push(j)
           }
-          // console.log(this.rangoPage)
         }
       } else {
         console.log('page es igual a 1')
-        // if (page )
         for (let i = 0; i < this.maxPages; i++) {
           this.rangoPage.push(i + 1)
         }
       }
-      console.log(this.rangoPage)
-      /* if (page < 1) {
-        page = 1
-      }
-      if (page > this.pages) {
-        page = this.pages
-      } else {
-        this.rangoPage = this.pages.filter(element => element < page + 20 && element >= page)
-      } */
     },
     /** Metodo para ir a la pagina 'page' */
     ruta (page) {
@@ -182,19 +158,17 @@ export default {
     height: 50px !important;
   }
   .card-container {
-    background: #1b2557d9;
+    background: #464555dc;
     border-radius: 10px;
   }
-  /*.img-peli {
-    width: 250px;
-    height: auto;
-  } */
-  .page-list {
-    background: #1b2557d9;
-    border: none;
+  .card-body-link {
+    cursor: pointer;
   }
-  .active {
-    background: #f00b0bbe !important;
+  .page-list {
+    background: #464555dc;
+    color: white;
+    border: 1px solid white;
+    margin: 3px;
   }
   .prev {
     cursor: pointer;
