@@ -23,16 +23,15 @@
           <nav aria-label="Page navigation example" class="mt-3">
             <ul class="pagination justify-content-center">
               <li class="page-item" @click="getPreviousPage()">
-                <a class="page-link page-list" href="#" aria-label="Previous">
+                <a class="page-link page-list prev" :href="prev" v-show="pageActual > 1" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li v-for="i in pages" :key="i" class="page-item" :class="isActive(i)">
-                <!-- <a class="page-link page-list" :href="ruta(i)">{{ i }}</a> -->
-                <a class="page-link page-list" :href="ruta(i)" v-show="i < rangoPage">{{ i }}</a>
+              <li v-for="i in rangoPage" :key="i" class="page-item" :class="isActive(i)">
+                <a class="page-link page-list" :href="ruta(i)" v-show="rangoPage">{{ i }}</a>
               </li>
               <li class="page-item" @click="getNextPage()">
-                <a class="page-link page-list" href="#" aria-label="Next">
+                <a class="page-link page-list next" :href="next" v-show="pageActual < pages" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
@@ -59,11 +58,13 @@ export default {
       totalElements: 0,
       pageActual: this.$route.params.page,
       pages: 0,
-      rangoPage: 20
+      maxPages: 7,
+      rangoPage: [],
+      prev: null,
+      next: null
     }
   },
   mounted () {
-    // this.pageActual = this.$route.params.page
     console.log(this.pageActual)
     this.axios.get(` ${url}list_movies.json?sort_by=year&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
       this.pageActual = this.pageActual = response.data.data.page_number
@@ -72,6 +73,7 @@ export default {
       this.totalElements = response.data.data.movie_count
       console.log(response.data.data)
       this.totalPaginas()
+      this.paginacion(this.pageActual)
     })
   },
   created () {
@@ -95,27 +97,24 @@ export default {
     showMovieDetails (id) {
       this.$router.push(`/movie/${id}`)
     },
-    /* getDataPagina (pagina) {
-      this.movies = null
-      this.pageActual = pagina
-      console.log('Entre al getDataPagina')
-      this.axios.get(` ${url}list_movies.json?sort_by=year&limit=${this.elementsPagina}&page=${this.pageActual} `).then((response) => {
-        this.movies = response.data.data.movies
-        console.log(this.movies)
-      })
-    }, */
 
     /** Metodo para guardar el total de paginas que va a tener la Vista */
     totalPaginas () {
       this.pages = Math.ceil(this.totalElements / this.elementsPagina)
+      console.log(this.pages)
+      /* for (let i = 0; i < Math.ceil(this.totalElements / this.elementsPagina); i++) {
+        this.pages.push(i)
+      } */
     },
 
     /** Metodo para ir a la pagina anterior */
     getPreviousPage () {
       if (this.pageActual > 1) {
+        console.log('toque el boton de atras')
         this.pageActual--
+        console.log('Ire a la pagina ', this.pageActual)
       }
-      this.ruta(this.pageActual)
+      this.prev = this.ruta(this.pageActual)
     },
 
     /** Metodo para ir a la pagina siguiente */
@@ -123,14 +122,53 @@ export default {
       if (this.pageActual < this.pages) {
         this.pageActual++
       }
-      this.ruta(this.pageActual)
+      this.next = this.ruta(this.pageActual)
     },
     isActive (pagina) {
       return pagina === this.pageActual ? 'active' : ''
     },
 
+    /** Metodo para obtener el rango de la paginacion */
+    paginacion (page) {
+      if ((page >= this.maxPages / 2) && (page <= this.pages)) {
+        if (page === this.pages) {
+          console.log('page es igual a this.page')
+          for (let i = page; i > (page - this.maxPages); i--) {
+            this.rangoPage.unshift(i)
+          }
+        }
+        if (page < this.pages) {
+          console.log('page es menor que this.pages')
+          for (let i = page; i > 0 && i >= (page - this.maxPages / 2); i--) {
+            console.log('realizando los calculos a la izquierda')
+            this.rangoPage.unshift(i)
+          }
+          for (let j = page + 1; j < (this.pages) && (j <= (page + this.maxPages / 2)); j++) {
+            console.log('realizando los calculos a la derecha')
+            this.rangoPage.push(j)
+          }
+          // console.log(this.rangoPage)
+        }
+      } else {
+        console.log('page es igual a 1')
+        // if (page )
+        for (let i = 0; i < this.maxPages; i++) {
+          this.rangoPage.push(i + 1)
+        }
+      }
+      console.log(this.rangoPage)
+      /* if (page < 1) {
+        page = 1
+      }
+      if (page > this.pages) {
+        page = this.pages
+      } else {
+        this.rangoPage = this.pages.filter(element => element < page + 20 && element >= page)
+      } */
+    },
     /** Metodo para ir a la pagina 'page' */
     ruta (page) {
+      console.log('entre a rutas')
       return `/peliculas/${page}`
     }
   }
@@ -157,5 +195,11 @@ export default {
   }
   .active {
     background: #f00b0bbe !important;
+  }
+  .prev {
+    cursor: pointer;
+  }
+  .next {
+    cursor: pointer;
   }
 </style>
