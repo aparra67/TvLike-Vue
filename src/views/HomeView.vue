@@ -8,10 +8,9 @@
 </template>
 
 <script>
-import MenuTv from '../components/MenuTv.vue'
-import ContentHome from '../components/ContentHome.vue'
+import MenuTv from '@/components/MenuTv.vue'
+import ContentHome from '@/components/ContentHome.vue'
 import FooterTv from '@/components/FooterTv.vue'
-
 export default {
   name: 'HomeView',
   components: { MenuTv, ContentHome, FooterTv }

@@ -1,46 +1,52 @@
 <template>
   <!-- Vista de la lista de TODAS las peliculas, en la cual se llama al componente 'MenuTv'-->
-    <MenuTv/>
-    <!-- <div class="peliculas"> -->
-      <div class="container-fluid mt-5">
-        <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
-        <div class="row g-4">
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
-              <div class="card shadow p-2 mb-5 h-100 card-container">
-                <!-- El boton es Para ver los detalles de la pelicula-->
-                <button type="link" @click="showMovieDetails(peli.id)">
-                  <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli"/>
-                </button>
-                <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
-                  <h5 class="card-title">{{ peli.title }}</h5>
-                </div>
-              </div>
+  <MenuTv />
+  <!-- <div class="peliculas"> -->
+  <div class="container-fluid mt-5">
+    <div v-if="carga" class="text-center">
+      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <h3>Cargando...</h3>
+    </div>
+    <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
+    <div class="row g-4">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
+        <div class="card shadow p-2 mb-5 h-100 card-container">
+          <!-- El boton es Para ver los detalles de la pelicula-->
+          <button type="link" @click="showMovieDetails(peli.id)">
+            <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli" />
+          </button>
+          <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
+            <h5 class="card-title">{{ peli.title }}</h5>
           </div>
         </div>
-        <!-- PAGINACION -->
-        <div class="row">
-          <nav aria-label="Page navigation example" class="mt-3">
-            <ul class="pagination justify-content-center">
-              <li class="page-item" @click="getPreviousPage()">
-                <a class="page-link page-list prev" :href="prev" v-show="pageActual > 1" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li v-for="i in rangoPage" :key="i" class="page-item" :class="isActive(i)">
-                <a class="page-link page-list" :href="ruta(i)" v-show="rangoPage">{{ i }}</a>
-              </li>
-              <li class="page-item" @click="getNextPage()">
-                <a class="page-link page-list next" :href="next" v-show="pageActual < pages" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <!-- Fin de la Paginacion-->
       </div>
-    <!-- </div> -->
-    <FooterTv/>
+    </div>
+    <!-- PAGINACION -->
+    <div class="row mt-3">
+      <nav aria-label="Page navigation example" class="mt-3">
+        <ul class="pagination justify-content-center" v-show="!carga">
+          <li class="page-item" @click="getPreviousPage()">
+            <a class="page-link page-list prev" :href="prev" v-show="pageActual > 1" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li v-for="i in rangoPage" :key="i" class="page-item" :class="isActive(i)">
+            <a class="page-link page-list" :href="ruta(i)" v-show="rangoPage">{{ i }}</a>
+          </li>
+          <li class="page-item" @click="getNextPage()">
+            <a class="page-link page-list next" :href="next" v-show="pageActual < pages" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- Fin de la Paginacion-->
+  </div>
+  <!-- </div> -->
+  <FooterTv />
 </template>
 <script>
 import MenuTv from '../components/MenuTv.vue'
@@ -60,17 +66,12 @@ export default {
       maxPages: 7,
       rangoPage: [],
       prev: null,
-      next: null
+      next: null,
+      carga: true
     }
   },
   mounted () {
-    this.axios.get(` ${url}list_movies.json?sort_by=year&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
-      this.pageActual = this.pageActual = response.data.data.page_number
-      this.movies = response.data.data.movies
-      this.totalElements = response.data.data.movie_count
-      this.totalPaginas()
-      this.paginacion(this.pageActual)
-    })
+    this.cargarPelis()
   },
   created () {
     if (localStorage.getItem('user-data') !== null) {
@@ -85,6 +86,25 @@ export default {
       if (this.$store.state.user !== null) {
         this.user = this.$store.state.user
         this.cargarLocalStorage()
+      }
+    },
+    async cargarPelis () {
+      try {
+        console.log('Cargando Datos')
+        await setTimeout(() => {
+          this.carga = false
+          this.axios.get(` ${url}list_movies.json?sort_by=year&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
+            console.log('datos cargados')
+            console.log(response)
+            this.pageActual = this.pageActual = response.data.data.page_number
+            this.movies = response.data.data.movies
+            this.totalElements = response.data.data.movie_count
+            this.totalPaginas()
+            this.paginacion(this.pageActual)
+          })
+        }, 2000)
+      } catch (error) {
+        console.log(error)
       }
     },
     cargarLocalStorage () {
@@ -152,28 +172,33 @@ export default {
 </script>
 
 <style scoped>
-  .heart-i {
-    color: red;
-    width: 50px !important;
-    height: 50px !important;
-  }
-  .card-container {
-    background: #464555dc;
-    border-radius: 10px;
-  }
-  .card-body-link {
-    cursor: pointer;
-  }
-  .page-list {
-    background: #464555dc;
-    color: white;
-    border: 1px solid white;
-    margin: 3px;
-  }
-  .prev {
-    cursor: pointer;
-  }
-  .next {
-    cursor: pointer;
-  }
+.heart-i {
+  color: red;
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.card-container {
+  background: #464555dc;
+  border-radius: 10px;
+}
+
+.card-body-link {
+  cursor: pointer;
+}
+
+.page-list {
+  background: #464555dc;
+  color: white;
+  border: 1px solid white;
+  margin: 3px;
+}
+
+.prev {
+  cursor: pointer;
+}
+
+.next {
+  cursor: pointer;
+}
 </style>

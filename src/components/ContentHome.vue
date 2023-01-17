@@ -28,8 +28,8 @@
       <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
         <div class="row row-content p-2">
           <strong class="mb-3 mt-2">Todos los Generos</strong>
-          <ul class="list-group shadow p-0 mb-5 card-container">
-            <li class="list-group-item"><div @click="destino('Action')" class="dropdown-item link-destino">Accion</div></li>
+          <ul class="list-group shadow p-0 mb-5 card-container-genre">
+            <li class="list-group-item link-content"><div @click="destino('Action')" class="dropdown-item link-destino">Accion</div></li>
             <li class="list-group-item"><div @click="destino('Animation')" class="dropdown-item link-destino">Animacion</div></li>
             <li class="list-group-item"><div @click="destino('Biography')" class="dropdown-item link-destino">Biografia</div></li>
             <li class="list-group-item"><div @click="destino('Comedy')" class="dropdown-item link-destino">Comedia</div></li>
@@ -56,11 +56,20 @@ export default {
     }
   },
   mounted () {
-    this.axios.get(` ${url}list_movies.json?sort_by=year&limit=8 `).then((response) => {
-      this.list_movies = response.data.data.movies
-    })
+    this.cargarPelis()
   },
   methods: {
+    async cargarPelis () {
+      try {
+        await setTimeout(() => {
+          this.axios.get(` ${url}list_movies.json?sort_by=year&limit=8 `).then((response) => {
+            this.list_movies = response.data.data.movies
+          })
+        }, 1200)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     listPeliReciente () {
       this.$router.push(`/peliculas/${1}`)
     },
@@ -100,6 +109,9 @@ export default {
     background: #464555dc;
     border-radius: 10px;
   }
+  .card-container-genre {
+    border-radius: 10px;
+  }
   .card-body-link {
     cursor: pointer;
   }
@@ -109,20 +121,23 @@ export default {
   }
   li {
     background: #464555dc;
+    margin-bottom: 5px;
+    border-radius: 8px;
   }
+
   .link-destino {
     background: #5062bb00;
-        color: white;
-        cursor:pointer;
-        font-weight: bold;
-    }
-    li:hover{
-        background: #ABA9BC;
-        color: #1b2557d9;
-    }
-    .link-destino:hover {
-      color: #1b2557d9;
-    }
+    color: white;
+    cursor:pointer;
+    font-weight: bold;
+  }
+  li:hover{
+    background: #ABA9BC;
+    color: #1b2557d9;
+  }
+  .link-destino:hover {
+    color: #1b2557d9;
+  }
   @media(min-width: 250px) and (max-width: 768px) {
         .row-content {
             margin-top: 20px;

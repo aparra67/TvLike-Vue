@@ -2,7 +2,13 @@
   <!-- Vista de la lista de peliculas por un genero especifico, en la cual se llama al componente 'MenuTv'-->
     <MenuTv/>
     <div class="peliculas">
-      <div class="container-fluid mt-3">
+      <div class="container-fluid mt-5">
+        <div v-if="carga" class="text-center">
+          <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <h3>Cargando...</h3>
+        </div>
         <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
@@ -28,7 +34,7 @@
         <!-- PAGINACION -->
         <div class="row row-col-12 mt-3">
           <nav aria-label="Page navigation example" class="mt-3">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center" v-show="!carga">
               <li class="page-item" @click="getPreviousPage()">
                 <a class="page-link page-list prev" :href="prev" v-show="pageActual > 1" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
@@ -69,17 +75,12 @@ export default {
       rangoPage: [],
       prev: null,
       next: null,
-      genre: this.$route.params.gen
+      genre: this.$route.params.gen,
+      carga: true
     }
   },
   mounted () {
-    this.axios.get(`${url}list_movies.json?sort_by=year&genre=${this.genre}&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
-      this.pageActual = this.pageActual = response.data.data.page_number
-      this.movies = response.data.data.movies
-      this.totalElements = response.data.data.movie_count
-      this.totalPaginas()
-      this.paginacion(this.pageActual)
-    })
+    this.cargarPelis()
   },
   created () {
     if (localStorage.getItem('user-data') !== null) {
@@ -98,6 +99,26 @@ export default {
       if (this.$store.state.user !== null) {
         this.user = this.$store.state.user
         this.cargarLocalStorage()
+      }
+    },
+
+    async cargarPelis () {
+      try {
+        console.log('Cargando Datos')
+        await setTimeout(() => {
+          this.carga = false
+          this.axios.get(` ${url}list_movies.json?sort_by=year&genre=${this.genre}&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
+            console.log('datos cargados')
+            console.log(response)
+            this.pageActual = this.pageActual = response.data.data.page_number
+            this.movies = response.data.data.movies
+            this.totalElements = response.data.data.movie_count
+            this.totalPaginas()
+            this.paginacion(this.pageActual)
+          })
+        }, 1500)
+      } catch (error) {
+        console.log(error)
       }
     },
 
