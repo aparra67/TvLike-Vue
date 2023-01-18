@@ -20,7 +20,7 @@
         <div class="carousel-item">
           <img src="../../public/slider/slider-2.jpg" class="d-block w-100 img-slider" alt="...">
           <div class="carousel-caption d-none d-md-block">
-            <h5>Trailers</h5>
+            <h5>Trailers de Peliculas</h5>
             <p>Disfruta de los mejores trailers de tus peliculas favoritas</p>
           </div>
         </div>
