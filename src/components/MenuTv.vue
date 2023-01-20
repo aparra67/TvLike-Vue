@@ -1,5 +1,5 @@
 <template>
-    <div class="menu-header">
+    <div class=" row menu-header">
 
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
@@ -151,6 +151,9 @@ export default {
         font-weight: bold;
         color: #fffffe !important;
     }
+    .link-menu:hover {
+      color: #344181d9 !important;
+    }
     .menu-list {
         background: #464555e8;
     }
@@ -166,7 +169,7 @@ export default {
         background: #ABA9BC;
     }
     .link-destino a:hover {
-      color: #1b2557d9;
+      color: #344181d9;
     }
     li {
         list-style: none;

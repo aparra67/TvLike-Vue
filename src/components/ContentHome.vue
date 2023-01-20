@@ -117,7 +117,7 @@ export default {
   }
   .btn-mas:hover {
     background: rgb(235, 39, 25);
-    color: #1b2557d9;
+    color: #344181d9;
   }
   li {
     background: #464555dc;
@@ -133,10 +133,10 @@ export default {
   }
   li:hover{
     background: #ABA9BC;
-    color: #1b2557d9;
+    color: #344181d9;
   }
   .link-destino:hover {
-    color: #1b2557d9;
+    color: #344181d9;
   }
   @media(min-width: 250px) and (max-width: 768px) {
         .row-content {
