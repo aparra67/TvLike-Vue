@@ -1,7 +1,8 @@
 <template>
-  <!-- Vista de la lista de peliculas por un genero especifico, en la cual se llama al componente 'MenuTv'-->
-    <MenuTv/>
-    <div class="peliculas">
+  <!-- Vista de la lista de TODAS las peliculas, en la cual se llama al componente 'MenuTv'-->
+  <MainLayout>
+    <template #pelis-genre>
+      <!-- <div class="peliculas"> -->
       <div class="container-fluid mt-5">
         <div v-if="carga" class="text-center">
           <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
@@ -10,29 +11,21 @@
           <h3>Cargando...</h3>
         </div>
         <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row g-4">
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
-              <div class="card shadow p-2 mb-5  h-100 card-container">
-                <!-- El boton es Para ver los detalles de la pelicula-->
-                <button type="link" @click="showMovieDetails(peli.id)">
-                  <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli"/>
-                </button>
-                <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
-                  <h5 class="card-title">{{ peli.title }}</h5>
-                </div>
-                <!-- <div class="card-footer">
-                  <a href="#" class="card-link" data-bs-toggle="tooltip" title="Tooltip on top">
-                    <i class="bi bi-heart heart-i"></i>
-                  </a>
-                  <a href="#" class="card-link">
-                    <i class="bi bi-card-text"></i>
-                  </a>
-                </div> -->
+            <div class="card shadow p-2 mb-5 h-100 card-container">
+              <!-- El boton es Para ver los detalles de la pelicula-->
+              <button type="link" @click="showMovieDetails(peli.id)">
+                <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli" />
+              </button>
+              <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
+                <h5 class="card-title">{{ peli.title }}</h5>
               </div>
+            </div>
           </div>
         </div>
         <!-- PAGINACION -->
-        <div class="row row-col-12 mt-3">
+        <div class="row mt-3">
           <nav aria-label="Page navigation example" class="mt-3">
             <ul class="pagination justify-content-center" v-show="!carga">
               <li class="page-item" @click="getPreviousPage()">
@@ -53,16 +46,16 @@
         </div>
         <!-- Fin de la Paginacion-->
       </div>
-    </div>
-    <FooterTv/>
+      <!-- </div> -->
+    </template>
+  </MainLayout>
 </template>
 <script>
-import MenuTv from '../components/MenuTv.vue'
-import FooterTv from '../components/FooterTv.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
 const url = 'https://yts.mx/api/v2/'
 export default {
-  name: 'PeliculasView',
-  components: { MenuTv, FooterTv },
+  name: 'PeliculasGenreView',
+  components: { MainLayout },
   data () {
     return {
       user: null,

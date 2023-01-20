@@ -1,60 +1,61 @@
 <template>
   <!-- Vista de la lista de TODAS las peliculas, en la cual se llama al componente 'MenuTv'-->
-  <MenuTv />
-  <!-- <div class="peliculas"> -->
-  <div class="container-fluid mt-5">
-    <div v-if="carga" class="text-center">
-      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <h3>Cargando...</h3>
-    </div>
-    <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
-    <div class="row g-4">
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
-        <div class="card shadow p-2 mb-5 h-100 card-container">
-          <!-- El boton es Para ver los detalles de la pelicula-->
-          <button type="link" @click="showMovieDetails(peli.id)">
-            <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli" />
-          </button>
-          <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
-            <h5 class="card-title">{{ peli.title }}</h5>
+  <MainLayout>
+    <template #pelis-all>
+      <!-- <div class="peliculas"> -->
+      <div class="container-fluid mt-5">
+        <div v-if="carga" class="text-center">
+          <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <h3>Cargando...</h3>
+        </div>
+        <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
+        <div class="row g-4">
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
+            <div class="card shadow p-2 mb-5 h-100 card-container">
+              <!-- El boton es Para ver los detalles de la pelicula-->
+              <button type="link" @click="showMovieDetails(peli.id)">
+                <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli" />
+              </button>
+              <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
+                <h5 class="card-title">{{ peli.title }}</h5>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- PAGINACION -->
+        <div class="row mt-3">
+          <nav aria-label="Page navigation example" class="mt-3">
+            <ul class="pagination justify-content-center" v-show="!carga">
+              <li class="page-item" @click="getPreviousPage()">
+                <a class="page-link page-list prev" :href="prev" v-show="pageActual > 1" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li v-for="i in rangoPage" :key="i" class="page-item" :class="isActive(i)">
+                <a class="page-link page-list" :href="ruta(i)" v-show="rangoPage">{{ i }}</a>
+              </li>
+              <li class="page-item" @click="getNextPage()">
+                <a class="page-link page-list next" :href="next" v-show="pageActual < pages" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- Fin de la Paginacion-->
       </div>
-    </div>
-    <!-- PAGINACION -->
-    <div class="row mt-3">
-      <nav aria-label="Page navigation example" class="mt-3">
-        <ul class="pagination justify-content-center" v-show="!carga">
-          <li class="page-item" @click="getPreviousPage()">
-            <a class="page-link page-list prev" :href="prev" v-show="pageActual > 1" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li v-for="i in rangoPage" :key="i" class="page-item" :class="isActive(i)">
-            <a class="page-link page-list" :href="ruta(i)" v-show="rangoPage">{{ i }}</a>
-          </li>
-          <li class="page-item" @click="getNextPage()">
-            <a class="page-link page-list next" :href="next" v-show="pageActual < pages" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <!-- Fin de la Paginacion-->
-  </div>
-  <!-- </div> -->
-  <FooterTv />
+      <!-- </div> -->
+    </template>
+  </MainLayout>
 </template>
 <script>
-import MenuTv from '../components/MenuTv.vue'
-import FooterTv from '../components/FooterTv.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
 const url = 'https://yts.mx/api/v2/'
 export default {
   name: 'PeliculasView',
-  components: { MenuTv, FooterTv },
+  components: { MainLayout },
   data () {
     return {
       user: null,
@@ -102,7 +103,7 @@ export default {
             this.totalPaginas()
             this.paginacion(this.pageActual)
           })
-        }, 2000)
+        }, 2500)
       } catch (error) {
         console.log(error)
       }
