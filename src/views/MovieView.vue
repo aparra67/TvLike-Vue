@@ -82,7 +82,16 @@
             </div>
           </div>
         </section>
-        <div class="container sugges-content mt-5 p-3">
+        <!-- Area de Descarga a travez de los links asociados-->
+        <!-- <div class="container back-content mt-5 p-3">
+          <h5 class="mt-2 fw-bold">Links de Descarga</h5>
+          <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 card-container">
+            link 1
+            link 2
+          </div>
+        </div> -->
+
+        <div class="container back-content mt-5 p-3">
           <h5 class="mt-2 fw-bold">Lista de Sugerencias</h5>
           <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
             <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" v-for="item in list_movies" :key="item.id">
@@ -126,6 +135,7 @@ export default {
   },
   mounted () {
     this.axios.get(`${url}movie_details.json?movie_id=${this.id}&with_images=true&with_cast=true`).then((response) => {
+      // console.log(response)
       this.details_movie = response.data.data.movie
       this.imagen = this.details_movie.large_cover_image
       this.title = this.details_movie.title
@@ -179,7 +189,7 @@ li {
   height: 80% !important;
 }
 
-.sugges-content {
+.back-content {
   background: #1b2557d9;
   border-radius: 10px;
 }

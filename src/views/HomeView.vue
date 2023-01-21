@@ -2,8 +2,8 @@
   <!-- La vista de 'home' se cargan los componentes que necesita la vista 'MenuTv' y 'ContentHome'-->
   <MainLayout>
     <template #home>
-      <div class=" container-fluid back p-3 m-2">
-        <h1>tvlike</h1>
+      <div class=" container back mx-auto p-3 mt-2">
+        <h1 class="mt-2">tvlike</h1>
         <CarouselHome />
       </div>
       <ContentHome/>
