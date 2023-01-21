@@ -3,5 +3,8 @@ module.exports = defineConfig({
   devServer: {
     proxy: 'https://moviesback2022.herokuapp.com/',
   },
-  transpileDependencies: true
+  transpileDependencies: true,
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/TvLike.github.io/'
+    : '/'
 })
