@@ -34,13 +34,11 @@
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
         data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <i class="bi bi-chevron-left icon-control"></i>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
         data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <i class="bi bi-chevron-right icon-control"></i>
       </button>
     </div>
   </div>
@@ -59,5 +57,11 @@
   p {
     color: white;
     font-weight: bold;
+  }
+  .icon-control {
+    color: rgb(233, 236, 28) !important;
+    width: 4rem;
+    height: auto;
+    font-size: 3.5rem;
   }
 </style>
