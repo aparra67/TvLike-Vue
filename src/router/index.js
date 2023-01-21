@@ -44,6 +44,11 @@ const routes = [
     name: 'peliculas-gen',
     component: () => import(/* webpackChunkName: "about" */ '../views/PeliculasGeneroView.vue')
   },
+  {
+    path: '/proximos-estrenos',
+    name: 'proximos-estrenos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ProximosView.vue')
+  },
   /** Ruta para ir a la vista de los detalles de una pelicula 'movie' */
   {
     path: '/movie/:id',
