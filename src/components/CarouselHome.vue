@@ -11,22 +11,22 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="../../public/slider/slider-1.jpg" class="d-block w-100 img-slider" alt="...">
-          <div class="carousel-caption d-md-block">
+          <img id="img-carousel" src="../../public/slider/slider-1.jpg" class="d-block w-100 img-slider" alt="...">
+          <div class="carousel-caption d-none d-md-block">
             <h5>Información y Detalles</h5>
             <p>Enterate de las peliculas que estan dando de que hablar.</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="../../public/slider/slider-2.jpg" class="d-block w-100 img-slider" alt="...">
-          <div class="carousel-caption d-md-block">
+          <img id="img-carousel" src="../../public/slider/slider-2.jpg" class="d-block w-100 img-slider" alt="...">
+          <div class="carousel-caption d-none d-md-block">
             <h5>Trailers de Peliculas</h5>
             <p>Disfruta de los mejores trailers de tus peliculas favoritas</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="../../public/slider/slider-3.jpg" class="d-block w-100 img-slider" alt="...">
-          <div class="carousel-caption d-md-block">
+          <img id="img-carousel" src="../../public/slider/slider-3.jpg" class="d-block w-100 img-slider" alt="...">
+          <div class="carousel-caption d-none d-md-block">
             <h5>Posters</h5>
             <p>Las mejores imagenes de las peliculas que a ti te gustan</p>
           </div>
@@ -46,7 +46,7 @@
 
 <style scoped>
   .img-slider {
-    height: 40rem;
+    height: auto;
     opacity: 0.9;
     overflow: hidden;
   }
@@ -63,5 +63,10 @@
     width: 4rem;
     height: auto;
     font-size: 3.5rem;
+  }
+  @media(min-width: 250px) and (max-width: 575px) {
+    .icon-control {
+      font-size: 1.5rem;
+    }
   }
 </style>

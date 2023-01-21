@@ -2,8 +2,8 @@
   <!-- La vista de 'home' se cargan los componentes que necesita la vista 'MenuTv' y 'ContentHome'-->
   <MainLayout>
     <template #home>
-      <div class=" container back mx-auto p-3 mt-2">
-        <h1 class="mt-2">tvlike</h1>
+      <div class="container mx-auto p-3 mt-2 back">
+        <h1 class="mt-2 fs-1">tvlike</h1>
         <CarouselHome />
       </div>
       <ContentHome/>
@@ -25,11 +25,10 @@ export default {
   background: #1b2557d9;
   border-radius: 10px;
 }
-h1 {
+ h1 {
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 80px;
   letter-spacing: 5px;
   color: rgb(209, 13, 13);
 }

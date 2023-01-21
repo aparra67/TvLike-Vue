@@ -11,13 +11,13 @@
           </div>
           <!-------------- Diseño para mostrar 12 peliculas recientes en el contenedor principal-------->
           <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 row-pelis">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" v-for="item in list_movies" :key="item.id">
-              <div class="card shadow p-3 mb-5 h-100 card-container">
-                <button type="link" @click="showMovieDetails(item.id)">
+            <div id="pelis-col" class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" v-for="item in list_movies" :key="item.id">
+              <div id="peli-card" class="card shadow p-3 mb-5 h-100 card-container">
+                <button id="img-container" type="link" @click="showMovieDetails(item.id)">
                   <img :src="item.medium_cover_image" class="card-img-top img-thumbnail img-peli">
                 </button>
                 <div class="card-body card-body-link" @click="showMovieDetails(item.id)">
-                  <h5 class="card-title">{{ item.title }}</h5>
+                  <div class="card-title">{{ item.title }}</div>
                 </div>
               </div>
             </div>
@@ -109,11 +109,27 @@ export default {
     background: #464555dc;
     border-radius: 10px;
   }
+  #img-container {
+    background: none;
+    border: none;
+    padding: 15px;
+  }
+  #peli-card {
+    height: 320px !important;
+    width: auto !important;
+  }
   .card-container-genre {
     border-radius: 10px;
   }
   .card-body-link {
     cursor: pointer;
+    padding: 0;
+  }
+  .card-title {
+    width: 100% !important;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 5px;
   }
   .btn-mas:hover {
     background: rgb(235, 39, 25);
@@ -138,9 +154,58 @@ export default {
   .link-destino:hover {
     color: #344181d9;
   }
-  @media(min-width: 250px) and (max-width: 768px) {
+  @media(min-width: 250px) and (max-width: 575px) {
         .row-content {
             margin-top: 20px;
         }
-    }
+        #pelis-col {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        #peli-card {
+          height: 520px !important;
+          width: 400px !important;
+        }
+        .img-peli {
+          width: 250px;
+          height: auto;
+        }
+        .card-title {
+          font-size: 18px;
+        }
+  }
+   @media(min-width: 576px) and (max-width: 768px) {
+        .row-content {
+            margin-top: 20px;
+        }
+        #pelis-col {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        #peli-card {
+          height: 380px !important;
+          width: 400px !important;
+          overflow: hidden;
+        }
+  }
+  /* @media(min-width: 250px) and (max-width: 768px) {
+        .row-content {
+            margin-top: 20px;
+        }
+        #pelis-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          flex-wrap: nowrap;
+        }
+        #peli-card {
+          height: 320px !important;
+          width: 200px !important;
+        }
+  } */
 </style>
