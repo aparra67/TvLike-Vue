@@ -11,21 +11,23 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-4 ps-md-0">
               <h5 class="mt-0 fw-bold">{{ title }}</h5>
               <div class="descripcion text-start">
-                <p class="mt-3">{{ description }}</p>
+                <p class="mt-3 text-white">{{ description }}</p>
                 <br />
                 <h6 class="d-inline fw-bold">Año:</h6>
                 <span>&nbsp;{{ year }}</span>
-                <h6 class="fw-bold">Genero:</h6>
-                <ol v-for="item in genero" :key="item">
-                  <li>{{ item }}</li>
-                </ol>
+                <h6 class="fw-bold mt-2">Genero:</h6>
+                <div id="genero-container">
+                  <div id="genero" v-for="item in genero" :key="item">
+                    <spam class="text-white">{{ item }}</spam>
+                  </div>
+                </div>
                 <div v-if="cast">
-                  <h6 class="fw-bold">Reparto:</h6>
+                  <h6 class="fw-bold mt-2">Reparto:</h6>
                   <ol v-for="actor in cast" :key="actor" class="flex">
                     <li>
-                      <p>{{ actor.name }}</p>
+                      <p class="text-white">{{ actor.name }}</p>
                       <span v-if="actor.character_name">
-                        <p class="ms-2">({{ actor.character_name }})</p>
+                        <p class="text-white ms-2">({{ actor.character_name }})</p>
                       </span>
                     </li>
                   </ol>
@@ -35,7 +37,7 @@
                   <span> No hay información</span>
                 </div>
                 <h6 class="d-inline fw-bold">Raiting:</h6>
-                <span>&nbsp;{{ rating }}</span>
+                <span class="text-white">&nbsp;{{ rating }}</span>
               </div>
             </div>
           </div>
@@ -63,8 +65,9 @@
         <section class="container content p-2 mt-5">
           <h5 class="mt-2 fw-bold">Trailer de la pelicula.</h5>
           <div class="ratio ratio-16x9 mt-5">
-            <div class="mx-auto">
-              <iframe :src="trailer" class="yt-trailer" title="YouTube video" allowfullscreen></iframe>
+            <div class="mx-auto content-video">
+              <iframe class="yt-trailer" :src="trailer" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <!-- <iframe :src="trailer" class="yt-trailer" title="YouTube video" allowfullscreen></iframe> -->
             </div>
           </div>
         </section>
@@ -113,7 +116,7 @@
 import MainLayout from '@/layouts/MainLayout.vue'
 const url = 'https://yts.mx/api/v2/'
 const youtube = 'https://www.youtube.com/embed/'
-const propYoutube = '?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3'
+// const propYoutube = '?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3'
 export default {
   name: 'MovieView',
   components: { MainLayout },
@@ -144,7 +147,8 @@ export default {
       this.genero = this.details_movie.genres
       this.year = this.details_movie.year
       this.rating = this.details_movie.rating
-      this.trailer = youtube.concat(this.details_movie.yt_trailer_code).concat(propYoutube)
+      this.trailer = youtube.concat(this.details_movie.yt_trailer_code)
+      // this.trailer = youtube.concat(this.details_movie.yt_trailer_code).concat(propYoutube)
     })
     this.axios.get(` ${url}movie_suggestions.json?movie_id=${this.id} `).then((response) => {
       this.list_movies = response.data.data.movies
@@ -178,6 +182,15 @@ p {
   border-radius: 12px;
   height: 80% !important;
 }
+#genero-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#genero {
+  padding: 2px;
+}
 
 li {
   list-style: none;
@@ -201,8 +214,8 @@ li {
 }
 
 .yt-trailer {
-  width: 70% !important;
-  height: 70% !important;
+  width: 90%;
+  height: 80%;
   margin: 0 auto;
 }
 </style>

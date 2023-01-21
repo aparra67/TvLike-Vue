@@ -115,7 +115,6 @@ export default {
     padding: 15px;
   }
   #peli-card {
-    height: 320px !important;
     width: auto !important;
   }
   .card-container-genre {
@@ -166,7 +165,6 @@ export default {
           flex-wrap: wrap;
         }
         #peli-card {
-          height: 520px !important;
           width: 400px !important;
         }
         .img-peli {
@@ -188,7 +186,6 @@ export default {
           flex-wrap: wrap;
         }
         #peli-card {
-          height: 380px !important;
           width: 400px !important;
           overflow: hidden;
         }

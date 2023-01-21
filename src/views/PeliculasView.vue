@@ -12,10 +12,10 @@
         </div>
         <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
         <div class="row g-4">
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
+          <div id="pelis-col" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" v-for="peli in movies" :key="peli.id">
             <div class="card shadow p-2 mb-5 h-100 card-container">
               <!-- El boton es Para ver los detalles de la pelicula-->
-              <button type="link" @click="showMovieDetails(peli.id)">
+              <button id="img-container" type="link" @click="showMovieDetails(peli.id)">
                 <img :src="peli.medium_cover_image" class="card-img-top img-thumbnail img-peli" />
               </button>
               <div class="card-body card-body-link" @click="showMovieDetails(peli.id)">
@@ -93,7 +93,6 @@ export default {
       try {
         console.log('Cargando Datos')
         await setTimeout(() => {
-          this.carga = false
           this.axios.get(` ${url}list_movies.json?sort_by=year&limit=${this.elementsPagina}&page=${this.pageActual}`).then((response) => {
             console.log('datos cargados')
             console.log(response)
@@ -102,6 +101,9 @@ export default {
             this.totalElements = response.data.data.movie_count
             this.totalPaginas()
             this.paginacion(this.pageActual)
+            if (response.status === 200) {
+              this.carga = false
+            }
           })
         }, 2500)
       } catch (error) {
@@ -183,11 +185,21 @@ export default {
   background: #464555dc;
   border-radius: 10px;
 }
-
+#img-container {
+  background: none;
+  border: none;
+  padding: 15px;
+}
 .card-body-link {
   cursor: pointer;
+  padding: 0;
 }
-
+.card-title {
+    width: 100% !important;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 5px;
+  }
 .page-list {
   background: #464555dc;
   color: white;
@@ -201,5 +213,38 @@ export default {
 
 .next {
   cursor: pointer;
+}
+
+@media(min-width: 250px) and (max-width: 575px) {
+  #pelis-col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .card-container {
+    width: 400px !important;
+  }
+  .img-peli {
+    width: 250px;
+    height: auto;
+  }
+  .card-title {
+    font-size: 18px;
+  }
+}
+@media(min-width: 576px) and (max-width: 768px) {
+  #pelis-col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .card-container {
+    width: 400px !important;
+    overflow: hidden;
+  }
 }
 </style>

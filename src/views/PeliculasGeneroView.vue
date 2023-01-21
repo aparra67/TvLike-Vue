@@ -108,8 +108,11 @@ export default {
             this.totalElements = response.data.data.movie_count
             this.totalPaginas()
             this.paginacion(this.pageActual)
+            if (response.status === 200) {
+              this.carga = false
+            }
           })
-        }, 1500)
+        }, 2500)
       } catch (error) {
         console.log(error)
       }

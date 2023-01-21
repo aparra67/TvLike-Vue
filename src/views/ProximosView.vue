@@ -2,7 +2,7 @@
   <MainLayout>
     <template #next>
       <div class="container-fluid back m-2">
-        <h1>tvlike</h1>
+        <h1 class="mt-2 mb-5 fs-1">tvlike</h1>
         <img src="../../public/no-disponible.jpg" alt="No disponible" />
       </div>
     </template>
@@ -25,7 +25,6 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 80px;
   letter-spacing: 5px;
   color: rgb(209, 13, 13);
 }
