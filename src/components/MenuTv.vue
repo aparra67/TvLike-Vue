@@ -50,7 +50,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link-menu" href="#">
+                            <a class="nav-link link-menu" href="/proximos-estrenos">
                               <i class="bi bi-calendar-event-fill"> Proximos Estrenos</i>
                             </a>
                         </li>
