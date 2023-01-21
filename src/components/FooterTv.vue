@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row footer-container">
         <footer class="py-1 mt-3 border-top footer-page">
             <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center section">
                 <a href="/" class="me-2 mb-md-0">
@@ -23,6 +23,9 @@
     </div>
 </template>
 <style scoped>
+.footer-container {
+    margin-top: auto;
+}
 .footer-page {
     display: flex;
     background: #1b2557d9;
