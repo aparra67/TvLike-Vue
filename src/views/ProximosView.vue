@@ -1,9 +1,9 @@
 <template>
   <MainLayout>
     <template #next>
-      <div class="container-fluid back m-2">
+      <div class="container mx-auto back m-2">
         <h1 class="mt-2 mb-5 fs-1">tvlike</h1>
-        <img src="../../public/no-disponible.jpg" alt="No disponible" />
+        <img src="../../public/no-disponible.jpg" class="d-block w-100" alt="No disponible" />
       </div>
     </template>
   </MainLayout>
