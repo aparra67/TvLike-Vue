@@ -1,7 +1,7 @@
 <template>
     <div class=" row menu-header">
 
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
                     <img src="../../public/TvLike-transparent.png" width="100" height="80" class="d-inline-block align-text-top"/>
