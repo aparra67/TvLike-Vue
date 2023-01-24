@@ -3,10 +3,10 @@
   <MainLayout>
     <template #pelis-genre>
       <!-- <div class="peliculas"> -->
-      <SpinnerComponent v-if="carga" />
       <div class="container-fluid mt-5">
         <!-- Los datos se cargan de forma dinamica a traves de las directivas de Vue.js -->
         <div class="row g-4" style="margin-top: 4rem;">
+          <SpinnerComponent v-if="carga" />
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" v-for="peli in movies" :key="peli.id">
             <div class="card shadow p-2 mb-5 h-100 card-container">
               <!-- El boton es Para ver los detalles de la pelicula-->
