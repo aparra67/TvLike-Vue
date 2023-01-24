@@ -2,7 +2,7 @@
   <!-- La vista de 'home' se cargan los componentes que necesita la vista 'MenuTv' y 'ContentHome'-->
   <MainLayout>
     <template #home>
-      <div class="container mx-auto p-3 mt-2 back">
+      <div class="container mx-auto p-3 back">
         <h1 class="mt-2 fs-1">tvlike</h1>
         <CarouselHome />
       </div>
@@ -24,6 +24,7 @@ export default {
 .back {
   background: #1b2557d9;
   border-radius: 10px;
+  margin-top: 8rem;
 }
  h1 {
   text-align: center;

@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #next>
-      <div class="container mx-auto back m-2">
+      <div class="container mx-auto back">
         <h1 class="mt-2 mb-5 fs-1">tvlike</h1>
         <img src="../../public/no-disponible.jpg" class="d-block w-100" alt="No disponible" />
       </div>
@@ -19,6 +19,7 @@ export default {
   background: #1b2557d9;
   border-radius: 10px;
   padding: 7rem 0;
+  margin-top: 8rem;
 }
 
 h1 {

@@ -3,7 +3,7 @@
     <template #movieview>
       <div class="movie">
         <!-- Seccion de los Detalles de la Pelicula-->
-        <section class="container">
+        <section class="container" style="margin-top: 8rem;">
           <div class="row g-4 position-relative shadow mb-5 card-container mt-5">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-md-0 p-md-4">
               <img :src="imagen" class="w-100">
